@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -25,21 +26,22 @@
   
 <nav class="level">
  <div class="level-item has-text-centered">
-  <div class="block">
-    <form action="#" method="POST" role="form">
-      <div class="block">
+ 
+    <div class="block">
+      <form action="{% url 'add' %}" method="POST" role="form">
+        {% csrf_token %}
         <div class="field has-addons">
-          <p class="control">
-            <input type="text" class="input" placeholder="Enter tasks...">
-          </p>
-          <p class="control">
-            <a href="" class="button is-info">Add</a>
-          </p>
+          <div class="control is-expanded">
+         {{form.text}}
+          </div>
+          <div class="control">
+            <button href="" type="submit" class="button is-info">ADD</button>
+          </div>
         </div>
-      </div> 
-    </form>
-  </div>
-  </div>
+      </div>
+
+
+</div>
   </nav>
 
   
@@ -49,12 +51,12 @@
       <footer class="card-footer">
         <p class="card-footer-item">
           <span >
-           <button class="button is-danger">DELETE COMPLETE</button>
+           <a href="{% url 'deletecomplete' %}"><button class="button is-danger">DELETE COMPLETE</button></a>
           </span>
         </p>
         <p class="card-footer-item">
             <span >
-                <button class="button is-danger">DELETE ALL</button>
+               <a href="{% url 'deleteall' %}"> <button class="button is-danger">DELETE ALL</button></a>
             </span>
           </p>
       </footer>
@@ -64,10 +66,15 @@
   <div class="block is-block">
   <div class="list is-hoverable ">
 <ul>
-  <li class="list-item">Create My website <button class="delete is-pulled-right has-background-danger"></button></li>
-  <li class="list-item">Create My website <button class="delete is-pulled-right has-background-danger"></button></li>
-  <li class="list-item">Create My website <button class="delete is-pulled-right has-background-danger"></button></li>
- 
+  {% for todo in todo_list %}
+
+  {% if todo.complete %}
+  <li class="list-item has-text-grey-light">{{todo.text}} <button class="delete is-pulled-right has-background-info"></button></li>
+  {% else %}
+  <a href="{% url 'complete' todo.id%}"><li class="list-item ">{{todo.text}} <button class="delete is-pulled-right has-background-danger"></button></li></a>
+  {% endif %}
+  {%endfor %}
+
 </ul>
   </div>
   </div>
