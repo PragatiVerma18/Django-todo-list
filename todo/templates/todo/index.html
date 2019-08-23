@@ -52,7 +52,7 @@
       <footer class="card-footer">
         <p class="card-footer-item">
           <span >
-           <a href="{% url 'deletecomplete' %}" class="button is-danger">DELETE COMPLETE</a>
+           <a href="{% url 'deletecomplete' %}" class="button is-warning">DELETE COMPLETED TASKS</a>
           </span>
         </p>
         <p class="card-footer-item">
@@ -70,9 +70,9 @@
   {% for todo in todo_list %}
 
   {% if todo.complete %}
-  <li class="list-item has-text-grey-light">{{todo.text}} <button class="delete is-pulled-right has-background-info"></button></li>
+  <li class="list-item has-text-grey-light">{{todo.text}} <a class="delete is-pulled-right has-background-info" href="{% url 'endtodo' todo.id%}"></a></li>
   {% else %}
-  <a href="{% url 'complete' todo.id%}"><li class="list-item ">{{todo.text}} <button class="delete is-pulled-right has-background-danger"></button></li></a>
+  <a href="{% url 'complete' todo.id%}"><li class="list-item ">{{todo.text}} <a class="delete is-pulled-right has-background-danger" href="{% url 'endtodo' todo.id%}"></a></li></a>
   {% endif %}
   {%endfor %}
 
@@ -81,7 +81,7 @@
   </div>
 
 
-
+<div style="margin-top: 200px;"></div>
 </div>
 	</body>
 </html>

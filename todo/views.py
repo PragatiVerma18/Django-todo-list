@@ -36,3 +36,8 @@ def deleteAll(request):
   todo.objects.all().delete()
 
   return redirect('index')
+
+def endtodo(request,todo_id):
+  ctodo = todo.objects.get(pk=todo_id)
+  ctodo.delete()
+  return redirect('index')
